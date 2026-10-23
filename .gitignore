@@ -1,0 +1,14 @@
+# environments and builds
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+frontend/node_modules/
+frontend/dist/
+
+# upstream repository and FlyWire data are fetched, not committed (scripts/fetch_upstream.py)
+upstream/
+
+# caches and run outputs
+data/cache/
+data/runs/

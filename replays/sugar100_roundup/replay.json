@@ -1,0 +1,21 @@
+{
+ "title": "Sugar GRNs at 100 Hz, Roundup silenced",
+ "description": "21 sugar GRNs, 10 trials x 1000 ms, both Roundup neurons silenced",
+ "computed_at": "2026-10-23",
+ "engine": "numba-port",
+ "config": {
+  "engine": "numba-port",
+  "duration_ms": 1000,
+  "seed": 1,
+  "n_trials": 10,
+  "stimulus": {
+   "target": "sugar_grns",
+   "rate_hz": 100.0,
+   "onset_ms": 0.0,
+   "offset_ms": null
+  },
+  "silenced_ids": [],
+  "rate_window_ms": null
+ },
+ "silenced_type": "roundup"
+}

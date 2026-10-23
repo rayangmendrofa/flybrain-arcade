@@ -1,0 +1,20 @@
+{
+ "brian2_spikes": 13689,
+ "port_spikes": 13689,
+ "common": 13689,
+ "only_brian2": 0,
+ "only_port": 0,
+ "identical": true,
+ "first_difference_step_neuron": null,
+ "duration_ms": 1000.0,
+ "rate_hz": 200.0,
+ "seed": 12,
+ "silenced": [
+  720575940607272649,
+  720575940623211725
+ ],
+ "n_input_events": 4172,
+ "wall_brian2_s": 27.237501900061034,
+ "wall_port_s": 1.312674800050445,
+ "brian2_version": "2.10.1"
+}

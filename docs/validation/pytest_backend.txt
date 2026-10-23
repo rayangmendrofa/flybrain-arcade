@@ -1,0 +1,60 @@
+platform win32 -- Python 3.14.7, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\rayan\coding\flybrain-arcade\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\rayan\coding\flybrain-arcade
+configfile: pytest.ini
+testpaths: backend/tests
+plugins: anyio-4.15.1
+collecting ... collected 44 items
+
+backend/tests/test_api.py::test_status PASSED                            [  2%]
+backend/tests/test_api.py::test_synthetic_baseline_intervention_compare_export PASSED [  4%]
+backend/tests/test_api.py::test_validation_errors PASSED                 [  6%]
+backend/tests/test_api.py::test_unmatched_runs_cannot_be_compared PASSED [  9%]
+backend/tests/test_api.py::test_live_model_run_and_cancellation PASSED   [ 11%]
+backend/tests/test_arena.py::test_config_bounds PASSED                   [ 13%]
+backend/tests/test_arena.py::test_interfaces_document_every_stage PASSED [ 15%]
+backend/tests/test_arena.py::test_encoder_decoder_mappings PASSED        [ 18%]
+backend/tests/test_arena.py::test_synthetic_episode_deterministic_and_matched_conditions PASSED [ 20%]
+backend/tests/test_arena.py::test_controller_respects_walls_and_obstacles PASSED [ 22%]
+backend/tests/test_arena.py::test_full_model_episode_mn9_gates_feeding PASSED [ 25%]
+backend/tests/test_engine.py::test_poisson_kick_units_and_latency PASSED [ 27%]
+backend/tests/test_engine.py::test_stimulation_window_targets_and_rate PASSED [ 29%]
+backend/tests/test_engine.py::test_synaptic_delay_is_t_dly PASSED        [ 31%]
+backend/tests/test_engine.py::test_input_during_refractory_is_discarded PASSED [ 34%]
+backend/tests/test_engine.py::test_silencing_equals_zero_outgoing_weights_and_neuron_still_spikes PASSED [ 36%]
+backend/tests/test_engine.py::test_silencing_changes_output_only_downstream PASSED [ 38%]
+backend/tests/test_engine.py::test_same_seed_reproducible_and_reset_between_runs PASSED [ 40%]
+backend/tests/test_engine.py::test_trial_k_depends_only_on_seed_and_k PASSED [ 43%]
+backend/tests/test_engine.py::test_results_independent_of_chunking_and_progress_polling[1] PASSED [ 45%]
+backend/tests/test_engine.py::test_results_independent_of_chunking_and_progress_polling[7] PASSED [ 47%]
+backend/tests/test_engine.py::test_results_independent_of_chunking_and_progress_polling[333] PASSED [ 50%]
+backend/tests/test_engine.py::test_results_independent_of_chunking_and_progress_polling[100000] PASSED [ 52%]
+backend/tests/test_engine.py::test_cancellation_raises_and_buffer_overflow_is_an_error PASSED [ 54%]
+backend/tests/test_engine.py::test_linear_constants_match_closed_form PASSED [ 56%]
+backend/tests/test_engine.py::test_neural_session_chunking_equals_single_run[chunks0] PASSED [ 59%]
+backend/tests/test_engine.py::test_neural_session_chunking_equals_single_run[chunks1] PASSED [ 61%]
+backend/tests/test_engine.py::test_neural_session_chunking_equals_single_run[chunks2] PASSED [ 63%]
+backend/tests/test_metrics_schema.py::test_counts_respect_half_open_window PASSED [ 65%]
+backend/tests/test_metrics_schema.py::test_rate_stats_definitions PASSED [ 68%]
+backend/tests/test_metrics_schema.py::test_psth_population_rate PASSED   [ 70%]
+backend/tests/test_metrics_schema.py::test_compare_stats_paired PASSED   [ 72%]
+backend/tests/test_metrics_schema.py::test_rates_match_upstream_get_rate PASSED [ 75%]
+backend/tests/test_metrics_schema.py::test_schema_bounds_and_defaults PASSED [ 77%]
+backend/tests/test_metrics_schema.py::test_comparison_matching PASSED    [ 79%]
+backend/tests/test_no_data.py::test_missing_upstream_falls_back_to_replay_and_synthetic PASSED [ 81%]
+backend/tests/test_upstream_fidelity.py::test_upstream_pinned_and_unmodified PASSED [ 84%]
+backend/tests/test_upstream_fidelity.py::test_parameters_read_from_upstream PASSED [ 86%]
+backend/tests/test_upstream_fidelity.py::test_linear_constants_equal_brian2_state_update PASSED [ 88%]
+backend/tests/test_upstream_fidelity.py::test_dataset_identity_and_index_order PASSED [ 90%]
+backend/tests/test_upstream_fidelity.py::test_silencing_groups_are_verified_v630_ids PASSED [ 93%]
+backend/tests/test_upstream_fidelity.py::test_exact_spike_trains_vs_upstream_brian2[silence0] PASSED [ 95%]
+backend/tests/test_upstream_fidelity.py::test_exact_spike_trains_vs_upstream_brian2[silence1] PASSED [ 97%]
+backend/tests/test_upstream_fidelity.py::test_statistics_match_upstream_published_example_outputs PASSED [100%]
+
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\rayan\coding\flybrain-arcade\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 44 passed, 1 warning in 57.52s ========================

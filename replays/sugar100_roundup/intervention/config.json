@@ -1,0 +1,17 @@
+{
+ "engine": "numba-port",
+ "duration_ms": 1000,
+ "seed": 1,
+ "n_trials": 10,
+ "stimulus": {
+  "target": "sugar_grns",
+  "rate_hz": 100.0,
+  "onset_ms": 0.0,
+  "offset_ms": null
+ },
+ "silenced_ids": [
+  "720575940607272649",
+  "720575940623211725"
+ ],
+ "rate_window_ms": null
+}

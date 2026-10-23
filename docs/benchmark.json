@@ -1,0 +1,72 @@
+{
+ "measured_at": "2026-10-23",
+ "hardware": "Intel Core Ultra 7 258V (8 cores / 8 threads; 8 logical CPUs; 31.5 GiB RAM; Windows-11-10.0.26200-SP0; Python 3.14.7)",
+ "model_size": {
+  "neurons": 127400,
+  "connections": 14687178,
+  "synapses": 52793639
+ },
+ "dataset": "flywire-v630-shiu2024",
+ "notes": [
+  "Wall-clock includes network loading/model construction, excludes interpreter start-up and Numba JIT.",
+  "brian2-reference uses Brian2's numpy runtime target (no C++ compiler on this machine).",
+  "numba-port runs trials in parallel threads; a single trial uses one thread."
+ ],
+ "rows": [
+  {
+   "engine": "numba-port",
+   "duration_ms": 1000,
+   "trials": 1,
+   "rate_hz": 100.0,
+   "wall_s": 2.326869900105521,
+   "wall_per_simulated_s": 2.326869900105521,
+   "spikes_per_trial": 10097.0,
+   "peak_memory_gb": 0.504311808,
+   "numba_threads": 8
+  },
+  {
+   "engine": "numba-port",
+   "duration_ms": 1000,
+   "trials": 10,
+   "rate_hz": 100.0,
+   "wall_s": 4.484380999929272,
+   "wall_per_simulated_s": 0.44843809999292716,
+   "spikes_per_trial": 9775.9,
+   "peak_memory_gb": 0.53710848,
+   "numba_threads": 8
+  },
+  {
+   "engine": "numba-port",
+   "duration_ms": 1000,
+   "trials": 30,
+   "rate_hz": 100.0,
+   "wall_s": 9.0749071999453,
+   "wall_per_simulated_s": 0.30249690666484336,
+   "spikes_per_trial": 9739.433333333332,
+   "peak_memory_gb": 0.6116352,
+   "numba_threads": 8
+  },
+  {
+   "engine": "numba-port",
+   "duration_ms": 1000,
+   "trials": 30,
+   "rate_hz": 200.0,
+   "wall_s": 9.120290799997747,
+   "wall_per_simulated_s": 0.3040096933332582,
+   "spikes_per_trial": 17046.433333333334,
+   "peak_memory_gb": 0.615387136,
+   "numba_threads": 8
+  },
+  {
+   "engine": "brian2-reference",
+   "duration_ms": 1000,
+   "trials": 1,
+   "rate_hz": 100.0,
+   "wall_s": 20.754128300002776,
+   "wall_per_simulated_s": 20.754128300002776,
+   "spikes_per_trial": 9803.0,
+   "peak_memory_gb": 3.058737152,
+   "numba_threads": null
+  }
+ ]
+}

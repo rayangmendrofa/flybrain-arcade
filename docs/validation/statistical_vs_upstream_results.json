@@ -1,0 +1,93 @@
+{
+ "seed": 2024,
+ "trials": 30,
+ "engine": "numba-port",
+ "cases": {
+  "sugarR_100Hz": {
+   "rate_hz": 100.0,
+   "wall_s": 9.577383699943312,
+   "ref_trials": 30,
+   "mn9_contra": {
+    "port_mean_hz": 67.46666666666667,
+    "port_sd": 5.339995838533543,
+    "upstream_mean_hz": 67.03333333333333,
+    "upstream_sd": 6.595368745482612,
+    "z": 0.2796874102354036,
+    "pass_T1": true
+   },
+   "mn9_other": {
+    "port_mean_hz": 48.833333333333336,
+    "port_sd": 4.131854574186055,
+    "upstream_mean_hz": 48.63333333333333,
+    "upstream_sd": 4.672496358716851,
+    "z": 0.1756268912643211,
+    "pass_T1": true
+   },
+   "total_spikes_per_trial": {
+    "port_mean": 9703.5,
+    "upstream_mean": 9635.766666666666,
+    "z": 0.7574580879454429,
+    "pass_T2": true
+   },
+   "per_neuron_rate_pearson_r": {
+    "r": 0.9995651884423542,
+    "n_neurons": 423,
+    "pass_T3": true
+   },
+   "active_set_jaccard": {
+    "jaccard": 0.9828571428571429,
+    "port_n": 347,
+    "upstream_n": 347,
+    "pass_T4": true
+   },
+   "grn_mean_rate_hz": {
+    "port": 99.26031746031747,
+    "upstream": 98.98253968253968,
+    "expected_approx": 99.0
+   }
+  },
+  "sugarR": {
+   "rate_hz": 200.0,
+   "wall_s": 9.57893029996194,
+   "ref_trials": 30,
+   "mn9_contra": {
+    "port_mean_hz": 92.5,
+    "port_sd": 5.3213406831988,
+    "upstream_mean_hz": 93.26666666666667,
+    "upstream_sd": 3.1510139461590594,
+    "z": -0.6790108620999893,
+    "pass_T1": true
+   },
+   "mn9_other": {
+    "port_mean_hz": 63.0,
+    "port_sd": 4.538722287164087,
+    "upstream_mean_hz": 61.8,
+    "upstream_sd": 4.174525921187539,
+    "z": 1.0658540616732757,
+    "pass_T1": true
+   },
+   "total_spikes_per_trial": {
+    "port_mean": 17017.933333333334,
+    "upstream_mean": 17052.2,
+    "z": -0.5437770868480359,
+    "pass_T2": true
+   },
+   "per_neuron_rate_pearson_r": {
+    "r": 0.9998121351718888,
+    "n_neurons": 454,
+    "pass_T3": true
+   },
+   "active_set_jaccard": {
+    "jaccard": 0.9974424552429667,
+    "port_n": 390,
+    "upstream_n": 391,
+    "pass_T4": true
+   },
+   "grn_mean_rate_hz": {
+    "port": 196.57142857142858,
+    "upstream": 196.75396825396825,
+    "expected_approx": 196.0
+   }
+  }
+ }
+}

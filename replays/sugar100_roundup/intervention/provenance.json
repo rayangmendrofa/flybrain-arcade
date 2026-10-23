@@ -1,0 +1,66 @@
+{
+ "model": {
+  "name": "Shiu et al. whole-brain leaky integrate-and-fire model",
+  "repository": "https://github.com/philshiu/Drosophila_brain_model",
+  "commit_expected": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+  "commit_found": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+  "commit_date": "2024-09-14",
+  "licence": "MIT License, Copyright (c) 2023 Philip Shiu and Nico Spiller",
+  "paper": "Shiu, P.K., Sterne, G.R., Spiller, N. et al. A Drosophila computational brain model reveals sensorimotor processing. Nature 634, 210-219 (2024). https://doi.org/10.1038/s41586-024-07763-9",
+  "paper_licence": "Creative Commons Attribution 4.0 International (article text and figures)"
+ },
+ "dataset": {
+  "id": "flywire-v630-shiu2024",
+  "label": "FlyWire public materialization v630 (connectivity as packaged by Shiu et al.)",
+  "files": {
+   "completeness": {
+    "name": "2023_03_23_completeness_630_final.csv",
+    "sha256": "479ed718404e7b1d898ee9a353410f481e6ed7694c30f579a7c2699f1c708a5d"
+   },
+   "connectivity": {
+    "name": "2023_03_23_connectivity_630_final.parquet",
+    "sha256": "94db8c650533bc36ffa3223f2e62325d5648b8d6bd31c3a4e1c804628c7557b3"
+   }
+  },
+  "neuron_id_system": "FlyWire root IDs of materialization v630 (not valid for v783 or MaleCNS)"
+ },
+ "run_id": "replay-intervention-20261023-162702-907479",
+ "kind": "intervention",
+ "mode": "live",
+ "baseline_run_id": "replay-baseline-20261023-162649-379674",
+ "config": {
+  "engine": "numba-port",
+  "duration_ms": 1000,
+  "seed": 1,
+  "n_trials": 10,
+  "stimulus": {
+   "target": "sugar_grns",
+   "rate_hz": 100.0,
+   "onset_ms": 0.0,
+   "offset_ms": null
+  },
+  "silenced_ids": [
+   "720575940607272649",
+   "720575940623211725"
+  ],
+  "rate_window_ms": null
+ },
+ "seed_scheme": "trial k uses numpy SeedSequence([seed, k]) (numba-port/synthetic: PCG64 Poisson draws; brian2-reference: brian2.seed(SeedSequence([seed,k]).generate_state(1)[0] mod 2^31))",
+ "simulation_backend": {
+  "engine": "numba-port",
+  "implementation": "Numba port of upstream Brian2 update (validated)",
+  "numba_threads": 8,
+  "cpu": "Intel64 Family 6 Model 189 Stepping 1, GenuineIntel",
+  "python": "3.14.7",
+  "worker_peak_memory_bytes": 541204480
+ },
+ "timing": {
+  "wall_s": 12.37899799994193,
+  "simulated_s": 10.0,
+  "simulated_s_per_trial": 1.0,
+  "wall_per_simulated_s": 1.237899799994193
+ },
+ "dt_ms": 0.1,
+ "generated_by": "FlyBrain Arcade",
+ "generated_at": "2026-10-23T09:27:02Z"
+}
