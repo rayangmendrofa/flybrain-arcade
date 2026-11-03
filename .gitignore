@@ -21,3 +21,6 @@ frontend/dist-site/
 frontend/site/public/data/
 frontend/site/public/models/
 frontend/site/public/media/
+
+# upload bundles made by scripts/make_handoff.py
+handoff/
