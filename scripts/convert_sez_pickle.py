@@ -1,3 +1,7 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+# This script converts upstream's sez_neurons.pickle to JSON.
 """Convert upstream ``sez_neurons.pickle`` to JSON once, so the app never unpickles at runtime.
 
 The pickle is the {cell type: [FlyWire v630 root IDs]} mapping used by upstream

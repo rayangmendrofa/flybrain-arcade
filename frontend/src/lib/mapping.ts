@@ -1,3 +1,6 @@
+// FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+// Built on the Drosophila whole-brain model of Shiu et al. (2024):
+// https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
 /**
  * Application-defined mapping from simulated MN9 activity to the cartoon's
  * proboscis pose. NOTHING here comes from the paper or the upstream model;

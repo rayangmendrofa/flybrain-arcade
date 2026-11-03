@@ -1,3 +1,7 @@
+// FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+// Built on the Drosophila whole-brain model of Shiu et al. (2024):
+// https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+
 import { scaleLinear } from "d3-scale";
 import { line } from "d3-shape";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";

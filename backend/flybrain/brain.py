@@ -1,3 +1,6 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
 """Neuron positions for the 3D brain view, matched to the model by exact FlyWire v630 root ID.
 
 Source: flyconnectome/flywire_annotations at tag v1.1.0 (Schlegel et al. 2024), whose

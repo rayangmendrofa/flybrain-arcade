@@ -1,3 +1,7 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+# This script compares the fast engine against the unmodified upstream model.
 """Exact comparison: upstream Brian2 model vs fast engine with identical input events.
 
 Pre-draws Poisson events for the 21 sugar GRNs, injects the same events into

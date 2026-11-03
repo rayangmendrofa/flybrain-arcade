@@ -1,3 +1,7 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+# This script benchmarks the unmodified upstream model.
 """Benchmark the unmodified upstream Brian2 model (NumPy runtime target).
 
 Usage: python scripts/bench_brian2.py --duration-ms 100 --rate 100 --seed 1 --out data/cache/bench_brian2.json

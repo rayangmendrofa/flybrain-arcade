@@ -1,3 +1,6 @@
+// FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+// Built on the Drosophila whole-brain model of Shiu et al. (2024):
+// https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
 /**
  * The narrated sequence used for the rendered video (and the page's "guided" mode).
  * A pure function of video time, so every frame can be drawn on its own (deterministic rendering).

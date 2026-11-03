@@ -1,3 +1,6 @@
+// FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+// Built on the Drosophila whole-brain model of Shiu et al. (2024):
+// https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
 // Converts the supplied house-fly OBJ (Tripo-generated, one fused mesh with vertex colours)
 // into a compressed GLB for the browser: meshoptimizer simplification to ~20% of the
 // triangles, quantised attributes and EXT_meshopt_compression.

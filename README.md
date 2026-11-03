@@ -8,6 +8,29 @@ the baseline. A cartoon fly shows an illustrative readout.
 > Results are outputs **of this model under its assumptions**, not recorded biological data and
 > not validated predictions about a living fly.
 
+## Credits
+
+This is a hobby project by **rayan** ([gelastinta.com](https://gelastinta.com)). It is built on
+other people's open work:
+
+- **The brain model:** [philshiu/Drosophila_brain_model](https://github.com/philshiu/Drosophila_brain_model)
+  by Philip Shiu and Nico Spiller (MIT licence).
+  - Paper: Shiu, P.K., Sterne, G.R., Spiller, N. et al. *A Drosophila computational brain model
+    reveals sensorimotor processing.* Nature 634, 210–219 (2024).
+  - This project runs their code unmodified as its reference engine.
+  - Its fast engine is a port of their model's update step, checked spike-for-spike against the
+    original.
+- **The connectome:** [FlyWire](https://flywire.ai), public release v630 (Dorkenwald et al. 2024,
+  Schlegel et al. 2024), as packaged in the repository above.
+- **Neuron positions for the 3D view:**
+  [flyconnectome/flywire_annotations](https://github.com/flyconnectome/flywire_annotations) v1.1.0
+  (Schlegel et al. 2024).
+- **Libraries:** three.js, React, Vite, Brian2, Numba and FastAPI. The 3D house fly is a model
+  generated with Tripo AI.
+
+This project's own code is MIT-licensed ([LICENSE](LICENSE)). Upstream licences and open licence
+questions about the data are listed in [NOTICE.md](NOTICE.md).
+
 - Scientific model and upstream verification record: [docs/model.md](docs/model.md)
 - Application-defined assumptions: [docs/assumptions.md](docs/assumptions.md)
 - Validation results: [docs/validation.md](docs/validation.md)

@@ -1,3 +1,6 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
 """Precompute a baseline + intervention pair and save it as a labelled REPLAY.
 
 Replays let the app show real model output on machines without the upstream

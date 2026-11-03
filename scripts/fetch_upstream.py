@@ -1,3 +1,7 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+# This script downloads the upstream repository at a pinned commit.
 """Fetch the upstream Shiu et al. repository (code + FlyWire v630 files) at the pinned commit.
 
 The upstream repository itself contains the connectivity data used by the

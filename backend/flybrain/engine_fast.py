@@ -1,3 +1,7 @@
+# FlyBrain Arcade by rayan (gelastinta.com). MIT licence, see LICENSE.
+# Built on the Drosophila whole-brain model of Shiu et al. (2024):
+# https://github.com/philshiu/Drosophila_brain_model (MIT, (c) 2023 Philip Shiu and Nico Spiller).
+# This file ports the per-step neuron and synapse update of upstream model.py (Brian2).
 """Fast engine: a Numba port of the upstream Brian2 model's per-step update.
 
 It reproduces, step for step, what Brian2 2.10 executes for upstream
