@@ -19,11 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-This project builds on, and ports part of, the Drosophila brain model by
-Philip Shiu and Nico Spiller (https://github.com/philshiu/Drosophila_brain_model),
-which is also MIT-licensed: Copyright (c) 2023 Philip Shiu and Nico Spiller.
-Its full licence text is reproduced in NOTICE.md. Third-party data and the 3D
-fly model are not covered by this licence; see NOTICE.md.
