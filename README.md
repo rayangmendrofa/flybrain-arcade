@@ -13,6 +13,7 @@ the baseline. A cartoon fly shows an illustrative readout.
 - Validation results: [docs/validation.md](docs/validation.md)
 - Measured performance: [docs/performance.md](docs/performance.md)
 - Optional arena (hybrid demonstration): [docs/arena.md](docs/arena.md)
+- 3D fly, brain view, gait, video and the static showcase page: [docs/visualisation.md](docs/visualisation.md)
 - Licences and notices: [NOTICE.md](NOTICE.md)
 
 ## Quick start
@@ -34,6 +35,12 @@ verifies SHA-256 checksums:
 
 ```bash
 .venv/Scripts/python scripts/fetch_upstream.py
+```
+
+Optional, for the 3D brain view: fetch the v630 neuron positions (~22 MB, checksum-verified):
+
+```bash
+.venv/Scripts/python scripts/fetch_positions.py
 ```
 
 Build the frontend:
@@ -97,7 +104,9 @@ cd frontend && npm test && npm run typecheck
    simulated duration, schedule (whole trial = upstream protocol, or an on/off window), rate
    measurement window, number of trials and seed. Press **Run baseline**. The run happens in a
    background worker and can be cancelled. The estimate is based on the measured benchmark.
-2. **Watch.** The fly's proboscis follows the smoothed MN9 rate through a documented mapping. The
+2. **Watch.** A 3D fly (or the 2D cartoon) extends a jointed proboscis that follows the smoothed
+   MN9 rate through a documented mapping. "Inside the head" shows every spike of trial 1 as a flash
+   at the neuron's FlyWire v630 position; "Who's driving?" colours what the model moves. The
    driving trace, with the application's threshold and saturation lines, sits beside it. Playback
    replays already-computed results at a chosen speed, so simulated time and wall-clock time stay
    separate. The schedule plot, a bounded spike raster (≤ 80 neurons, one trial at a time) and MN9
@@ -140,6 +149,23 @@ steering are not provided by the model. The interface table in the UI and
 whether it is published or an application assumption. A controller-only condition and silencing
 make matched comparisons possible. Nothing learns.
 
+### Showcase page (static, for gelastinta.com)
+
+A self-contained page with a narrated video, the 3D replay explorer, a one-neuron widget, the
+silencing result and the 3D hybrid arena. It needs no backend. Build it with:
+
+```bash
+.venv/Scripts/python scripts/export_site_data.py
+```
+
+```bash
+cd frontend && npm run build:site
+```
+
+The output is `frontend/dist-site/`. To re-render the video, run `npm run dev:site`, open
+`http://localhost:5175/#studio` and press **Render video**. Details and the licence checks needed
+before publishing are in [docs/visualisation.md](docs/visualisation.md).
+
 ## Project layout
 
 ```
@@ -155,10 +181,15 @@ backend/flybrain/
   jobs.py            background worker process, cancellation
   synthetic.py       SYNTHETIC DEMO network (not biological)
   arena/             stage 2: environment, encoder, decoder, controller, episode loop, API
+  brain.py           v630 neuron positions for the 3D brain view (visualisation only)
   api.py             FastAPI app
 backend/tests/       pytest suite (synthetic fixtures kept separate from biological data)
 frontend/src/        React + TypeScript UI (d3-scale/d3-shape SVG charts)
-scripts/             fetch_upstream, validate_exact, validate_statistical, benchmark, build_replay, convert_sez_pickle
+frontend/src/three/  three.js scene: 3D fly, proboscis, brain cloud, leg rig, tripod gait, 3D arena
+frontend/src/site/   static showcase page and the development video studio
+frontend/site/       showcase page entry (built with vite.site.config.ts)
+scripts/             fetch_upstream, fetch_positions, validate_exact, validate_statistical, benchmark, build_replay,
+                     export_site_data, convert_sez_pickle
 replays/             precomputed, labelled replay(s)
 docs/                model, assumptions, validation (+ raw outputs), performance, arena
 upstream/            (git-ignored) upstream clone with the FlyWire v630 files

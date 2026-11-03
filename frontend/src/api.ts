@@ -1,3 +1,4 @@
+import type { AtlasMeta, BrainActivity } from "./lib/brainData";
 import type { Comparison, ExperimentConfig, Job, NeuronGroup, Raster, ReplayMeta, RunSummary, Status } from "./types";
 
 export class ApiError extends Error {
@@ -34,6 +35,13 @@ export const api = {
   raster: (id: string, trial: number) => req<Raster>(`/api/runs/${id}/raster?trial=${trial}`),
   compare: (b: string, i: string) => req<Comparison>(`/api/compare?baseline=${b}&intervention=${i}`),
   replays: () => req<ReplayMeta[]>("/api/replays"),
+  brainAtlasMeta: () => req<AtlasMeta>("/api/brain/atlas"),
+  brainAtlasBin: async () => {
+    const r = await fetch("/api/brain/atlas.bin");
+    if (!r.ok) throw new ApiError(r.status, r.statusText);
+    return r.arrayBuffer();
+  },
+  brainActivity: (id: string, trial: number) => req<BrainActivity>(`/api/runs/${id}/brain?trial=${trial}`),
   loadReplay: (name: string) => req<{ meta: ReplayMeta; runs: { baseline?: string; intervention?: string } }>(`/api/replays/${name}/load`, { method: "POST" }),
 };
 

@@ -1,10 +1,12 @@
 import { scaleLinear } from "d3-scale";
 import { line } from "d3-shape";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { api, waitForJob } from "../api";
 import type { Job, NeuronGroup, Status } from "../types";
 import { JobStatus } from "./Controls";
 import { CategoryTag, fmt, Panel, PlotExport, useWidth, type Category } from "./Panel";
+
+const Arena3D = lazy(() => import("./Arena3D"));
 
 interface ArenaConfig {
   engine: "numba-port" | "synthetic";
@@ -273,6 +275,17 @@ export default function Arena({ status, reducedMotion }: { status: Status | null
             </>
           )}
         </Panel>
+        {ep && (
+          <Panel title="3D view" cats={["app", "model"]} id="arena-3d">
+            <Suspense fallback={<p className="empty">Loading the 3D view…</p>}>
+              <Arena3D key={ep.episode_id} episodes={[{ key: ep.episode_id, label: ep.label, ep }]} reducedMotion={reducedMotion} />
+            </Suspense>
+            <p className="fine">
+              Same episode in 3D. Legs step with a generic tripod gait drawn by the app (the brain dataset has no nerve cord); body position, heading and speed come
+              from the handcrafted controller; only the proboscis is driven by the model&rsquo;s MN9 output. See docs/visualisation.md.
+            </p>
+          </Panel>
+        )}
         {ep && <Pipeline ep={ep} k={k} />}
         {ep && <ArenaTraces ep={ep} k={k} />}
         {ep && <InterfacesTable ep={ep} />}

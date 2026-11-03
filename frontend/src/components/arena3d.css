@@ -1,0 +1,119 @@
+/* 3D arena view, shared by the app's Arena tab and the showcase page */
+.a3d {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 14px;
+}
+.a3d-viewer {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.a3d-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #2b3157;
+  background: #0d1124;
+  touch-action: none;
+}
+.a3d-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.a3d-msg {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #a6acc9;
+  text-align: center;
+  padding: 16px;
+}
+.a3d-badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f6c94524;
+  color: #fde68a;
+  border: 1px solid #f6c94580;
+  pointer-events: none;
+}
+.a3d-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.a3d-scrub {
+  flex: 1;
+  min-width: 140px;
+}
+.a3d-check {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+.a3d-note {
+  color: #a6acc9;
+  font-size: 13px;
+}
+.a3d-readout {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.a3d-stat {
+  background: #1a1f40;
+  border: 1px solid #2b3157;
+  border-radius: 12px;
+  padding: 9px 12px;
+  display: grid;
+}
+.a3d-stat.a3d-model {
+  border-left: 4px solid #f6c945;
+}
+.a3d-stat.a3d-app {
+  border-left: 4px solid #f472b6;
+}
+.a3d-stat .k,
+.a3d-stat .h {
+  color: #a6acc9;
+  font-size: 12.5px;
+}
+.a3d-stat .v {
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.a3d-legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: #a6acc9;
+  display: grid;
+  gap: 4px;
+}
+.a3d-legend .sw {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+@media (max-width: 860px) {
+  .a3d {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

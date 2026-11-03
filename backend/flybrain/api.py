@@ -15,7 +15,7 @@ from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, Res
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from . import neurons, runs, synthetic, upstream
+from . import brain, neurons, runs, synthetic, upstream
 from .experiment import MAX_DURATION_MS, MAX_TRIALS, RATE_MAX_HZ, RATE_MIN_HZ, ExperimentConfig
 from .jobs import Job, JobManager
 
@@ -218,6 +218,37 @@ def run_raster(run_id: str, trial: int = Query(0, ge=0)) -> dict:
     if trial >= len(run.raw["spike_neuron"]):
         raise HTTPException(422, "Trial index out of range")
     return runs.raster(run, trial)
+
+
+@app.get("/api/brain/atlas")
+def brain_atlas_meta() -> dict:
+    """Metadata for the 3D brain view's neuron positions (FlyWire v630 IDs, visualisation only)."""
+    if not brain.available():
+        raise HTTPException(404, "Neuron positions are not downloaded. Run: python scripts/fetch_positions.py")
+    try:
+        return brain.atlas_binary(brain.load_atlas())[1]
+    except (FileNotFoundError, KeyError, RuntimeError) as e:
+        raise HTTPException(503, str(e)) from None
+
+
+@app.get("/api/brain/atlas.bin")
+def brain_atlas_bin() -> Response:
+    if not brain.available():
+        raise HTTPException(404, "Neuron positions are not downloaded. Run: python scripts/fetch_positions.py")
+    data, _ = brain.atlas_binary(brain.load_atlas())
+    return Response(data, media_type="application/octet-stream", headers={"Cache-Control": "max-age=3600"})
+
+
+@app.get("/api/runs/{run_id}/brain")
+def run_brain(run_id: str, trial: int = Query(0, ge=0)) -> dict:
+    """Every spike of one trial (sorted by time) for the brain view."""
+    run = _get_run(run_id)
+    try:
+        return brain.run_activity(run, trial)
+    except IndexError as e:
+        raise HTTPException(422, str(e)) from None
+    except (ValueError, KeyError, FileNotFoundError) as e:
+        raise HTTPException(409, str(e)) from None
 
 
 @app.get("/api/compare")

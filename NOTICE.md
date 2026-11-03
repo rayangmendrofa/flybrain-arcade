@@ -51,3 +51,25 @@ this was not confirmed against FlyWire's own terms.)
 
 `replays/` contains simulation outputs (spike times of the model) computed from these data,
 not connectome data.
+
+## Neuron positions (3D brain view)
+
+`scripts/fetch_positions.py` downloads `Supplemental_file1_annotations.tsv` from
+<https://github.com/flyconnectome/flywire_annotations> at tag v1.1.0 (commit
+`df6bb136f5b3d91c3992df4e8de2642329e2a384`, the last release keyed to FlyWire v630 IDs) into
+`upstream/` (git-ignored). Cite Schlegel et al., *Whole-brain annotation and multi-connectome cell
+typing of Drosophila*, Nature 634, 139–152 (2024). **The repository has no licence file.** The
+static page (`frontend/site/public/data/atlas.bin`) contains positions derived from it: confirm
+reuse terms with the authors / FlyWire before publishing the page.
+
+## 3D fly model
+
+`frontend/public/models/housefly.glb` (and the copy in `frontend/site/public/models/`) is a
+simplified version of a house-fly mesh generated with Tripo AI and supplied by the project owner.
+The 38 MB source (`assets/source/`) is git-ignored. Check Tripo's terms for the account that
+generated it before redistributing the model publicly.
+
+## Libraries added for the 3D views and video
+
+three.js 0.186.1 (MIT), gltfpack 1.3.0 / meshoptimizer (MIT; build tool only), mediabunny 1.61.4
+(MPL-2.0; used only by the development video studio, not shipped in the page build).

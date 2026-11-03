@@ -1,9 +1,16 @@
 import { scaleLinear } from "d3-scale";
 import { line } from "d3-shape";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { api } from "../api";
+import { loadAtlas, spikesInWindow, type BrainActivity, type BrainAtlas } from "../lib/brainData";
 import { extension, MAPPING, sampleAt, simTimeAt, smooth } from "../lib/mapping";
+import { webglAvailable } from "../lib/webgl";
 import type { Mode, RunSummary } from "../types";
 import { CategoryTag, fmt, Panel, PlotExport, useWidth } from "./Panel";
+
+const Fly3D = lazy(() => import("./Fly3D"));
+type Display = "3d" | "2d";
+type View = "fly" | "brain";
 
 type Which = "baseline" | "intervention";
 const SPEEDS = [0.1, 0.25, 0.5, 1];
@@ -32,6 +39,38 @@ export function FlyStage(props: { baseline: RunSummary | null; intervention: Run
   const sI = useMemo(() => seriesOf(intervention), [intervention]);
   const shown = which === "intervention" && sI ? sI : sB;
   const outName = run?.outputs[0]?.name ?? "MN9";
+  const [display, setDisplay] = useState<Display>(() => (webglAvailable() ? "3d" : "2d"));
+  const [view, setView] = useState<View>("fly");
+  const [overlay, setOverlay] = useState(false);
+  const [atlas, setAtlas] = useState<BrainAtlas | null>(null);
+  const [brainErr, setBrainErr] = useState<string | null>(null);
+  const [activity, setActivity] = useState<BrainActivity | null>(null);
+  const brainPossible = !!run && run.config.engine !== "synthetic";
+
+  // neuron positions: fetched once, only when the brain view is first opened
+  useEffect(() => {
+    if (display !== "3d" || view !== "brain" || atlas) return;
+    let live = true;
+    loadAtlas("api", api.brainAtlasMeta, api.brainAtlasBin)
+      .then((a) => live && setAtlas(a))
+      .catch((e) => live && setBrainErr(String((e as Error).message)));
+    return () => {
+      live = false;
+    };
+  }, [display, view, atlas]);
+  // every spike of trial 1 of the run currently driving the stage
+  useEffect(() => {
+    setActivity(null);
+    if (!run || !brainPossible || display !== "3d") return;
+    let live = true;
+    api
+      .brainActivity(run.run_id, 0)
+      .then((a) => live && setActivity(a))
+      .catch((e) => live && setBrainErr(String((e as Error).message)));
+    return () => {
+      live = false;
+    };
+  }, [run?.run_id, brainPossible, display]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Playback clock: wall-clock -> simulated time. Display only; never touches the simulation.
   const startRef = useRef<{ wall: number; sim: number } | null>(null);
@@ -95,7 +134,29 @@ export function FlyStage(props: { baseline: RunSummary | null; intervention: Run
           <strong>Illustrative readout of simulated neural activity</strong>
           <span>Not a biomechanical reconstruction · not recorded biological data</span>
         </div>
-        <FlyCartoon extension={e} stimOn={stimOn} reducedMotion={reducedMotion} empty={!run} />
+        {display === "3d" ? (
+          <Suspense fallback={<div className="fly3d"><div className="fly3d-msg">Loading 3D fly…</div></div>}>
+            <Fly3D
+              extension={e}
+              stimOn={stimOn}
+              simT={simT}
+              atlas={view === "brain" ? atlas : null}
+              activity={view === "brain" ? activity : null}
+              view={view}
+              overlay={overlay}
+              reducedMotion={reducedMotion}
+              label={
+                view === "brain"
+                  ? `Simulated spikes shown as flashing dots at neuron positions inside the head; ${activity ? spikesInWindow(activity, simT, 10) : 0} spikes in the last 10 ms`
+                  : `3D fly; proboscis extension ${Math.round(e * 100)} percent (application mapping of simulated MN9 rate)`
+              }
+            />
+          </Suspense>
+        ) : (
+          <FlyCartoon extension={e} stimOn={stimOn} reducedMotion={reducedMotion} empty={!run} />
+        )}
+        {display === "3d" && overlay && <DriverLegend />}
+        {display === "3d" && view === "brain" && <BrainLegend atlas={atlas} activity={activity} error={brainErr} possible={brainPossible} />}
         <div className="stage-readout" aria-live="off">
           <div>
             <span className="k">Simulated time</span>
@@ -113,6 +174,12 @@ export function FlyStage(props: { baseline: RunSummary | null; intervention: Run
             <span className="k">extension (app mapping)</span>
             <span className="v mono">{Math.round(e * 100)}%</span>
           </div>
+          {display === "3d" && view === "brain" && activity && (
+            <div>
+              <span className="k">spikes, last 10 ms (trial 1, all neurons)</span>
+              <span className="v mono">{spikesInWindow(activity, simT, 10)}</span>
+            </div>
+          )}
           <div>
             <span className="k">sugar GRN stimulation</span>
             <span className={`v ${stimOn ? "on" : ""}`}>{stimOn ? `ON · ${sched?.rate_hz} Hz Poisson` : "off"}</span>
@@ -120,6 +187,32 @@ export function FlyStage(props: { baseline: RunSummary | null; intervention: Run
         </div>
       </div>
 
+      <div className="stage-options" role="group" aria-label="Stage display options">
+        <div className="seg" role="radiogroup" aria-label="Drawing">
+          <button type="button" role="radio" aria-checked={display === "3d"} className={display === "3d" ? "on" : ""} onClick={() => setDisplay("3d")}>
+            3D fly
+          </button>
+          <button type="button" role="radio" aria-checked={display === "2d"} className={display === "2d" ? "on" : ""} onClick={() => setDisplay("2d")}>
+            2D cartoon
+          </button>
+        </div>
+        {display === "3d" && (
+          <>
+            <div className="seg" role="radiogroup" aria-label="Camera">
+              <button type="button" role="radio" aria-checked={view === "fly"} className={view === "fly" ? "on" : ""} onClick={() => setView("fly")}>
+                Whole fly
+              </button>
+              <button type="button" role="radio" aria-checked={view === "brain"} className={view === "brain" ? "on" : ""} onClick={() => setView("brain")}>
+                Inside the head
+              </button>
+            </div>
+            <label className="check">
+              <input type="checkbox" checked={overlay} onChange={(ev) => setOverlay(ev.target.checked)} /> Who&rsquo;s driving?
+            </label>
+            <span className="note">Drag to orbit · scroll to zoom</span>
+          </>
+        )}
+      </div>
       <div className="playback" role="group" aria-label="Playback of computed results">
         <div className="seg" role="radiogroup" aria-label="Which run drives the fly">
           <button type="button" role="radio" aria-checked={which === "baseline"} className={which === "baseline" ? "on base" : ""} onClick={() => setWhich("baseline")} disabled={!baseline}>
@@ -304,5 +397,42 @@ function FlyCartoon({ extension: e, stimOn, reducedMotion, empty }: { extension:
       <path d="M88 108 L76 98" stroke="#5b3a1a" strokeWidth="5" strokeLinecap="round" />
       <path d="M76 98 Q66 84 70 74" stroke="#5b3a1a" strokeWidth="1.5" fill="none" />
     </svg>
+  );
+}
+
+function DriverLegend() {
+  return (
+    <div className="stage-legend driver">
+      <div>
+        <span className="sw" style={{ background: "#f6c945" }} /> <strong>Proboscis</strong>: moved by the model&rsquo;s MN9 output <CategoryTag cat="model" compact /> through the
+        app&rsquo;s extension mapping <CategoryTag cat="app" compact />
+      </div>
+      <div>
+        <span className="sw" style={{ background: "#9aa3c7" }} /> Everything else is static here: body, wings and legs are not driven by the model
+      </div>
+    </div>
+  );
+}
+
+function BrainLegend({ atlas, activity, error, possible }: { atlas: BrainAtlas | null; activity: BrainActivity | null; error: string | null; possible: boolean }) {
+  if (!possible) return <div className="stage-legend brain">The synthetic demo has no neuron positions. Load a replay or run the published model to see the brain view.</div>;
+  if (error) return <div className="stage-legend brain error">{error}</div>;
+  if (!atlas || !activity) return <div className="stage-legend brain">Loading neuron positions and spikes…</div>;
+  return (
+    <div className="stage-legend brain">
+      <div>
+        <span className="dot" style={{ background: "#ffd25a" }} /> spike (fades over ~12 ms) · <span className="dot" style={{ background: "#7dd3fc" }} /> stimulated sugar GRNs ·{" "}
+        <span className="dot" style={{ background: "#ff5fa2" }} /> MN9
+        {activity.roles.silenced.length > 0 && (
+          <>
+            {" "}· <span className="dot" style={{ background: "#94a3b8" }} /> silenced
+          </>
+        )}
+      </div>
+      <div className="fine">
+        {atlas.meta.n_with_position.toLocaleString()} of {atlas.meta.n_neurons.toLocaleString()} neurons placed at their FlyWire v630 positions (Schlegel et al. 2024). This is a{" "}
+        <em>Drosophila</em> brain drawn inside a stylised house-fly head for illustration. Spikes: trial 1 of this run, {activity.n_spikes.toLocaleString()} in total.
+      </div>
+    </div>
   );
 }
